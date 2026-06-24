@@ -1,0 +1,23 @@
+# Dependencies — Vercel installs these during build
+node_modules/
+
+# Angular cache and temp files
+.angular/
+.npm/
+
+# Test output
+coverage/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Vercel project config (auto-added)
+.vercel/
+
+# Build output from previous local builds (Vercel will build fresh)
+dist/

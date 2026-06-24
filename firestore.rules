@@ -1,0 +1,131 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helper functions ────────────────────────────────────────────────────
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function getUserRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && getUserRole() in ['super_admin', 'manager', 'finance'];
+    }
+
+    function isSuperAdmin() {
+      return isAuthenticated() && getUserRole() == 'super_admin';
+    }
+
+    function isOwner() {
+      return isAuthenticated() && getUserRole() == 'owner';
+    }
+
+    function isTenant() {
+      return isAuthenticated() && getUserRole() == 'tenant';
+    }
+
+    function isVendor() {
+      return isAuthenticated() && getUserRole() == 'vendor';
+    }
+
+    // ── Users ───────────────────────────────────────────────────────────────
+    // IMPORTANT: Own-doc read uses request.auth.uid directly (no getUserRole call)
+    // to avoid recursive permission lookups during login.
+    match /users/{uid} {
+      allow read:   if isAuthenticated() && (request.auth.uid == uid || isAdmin());
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() && (request.auth.uid == uid || isAdmin());
+      allow delete: if isSuperAdmin();
+    }
+
+    // ── Properties ──────────────────────────────────────────────────────────
+    match /Property/{docId} {
+      allow read:                  if isAuthenticated();
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ── Units ───────────────────────────────────────────────────────────────
+    match /units/{docId} {
+      allow read:                  if isAuthenticated();
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ── Owners ──────────────────────────────────────────────────────────────
+    match /owners/{docId} {
+      allow read:                  if isAuthenticated() && (isAdmin() || isOwner());
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ── Tenants ─────────────────────────────────────────────────────────────
+    match /tenants/{docId} {
+      allow read: if isAuthenticated() && (isAdmin() ||
+                    (isTenant() && resource.data.uid == request.auth.uid));
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ── Leases ──────────────────────────────────────────────────────────────
+    match /leases/{docId} {
+      allow read: if isAuthenticated() && (isAdmin() ||
+                    (isTenant() && resource.data.tenantId == request.auth.uid) ||
+                    isOwner());
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ── Rent Installments ────────────────────────────────────────────────────
+    match /rent_installments/{docId} {
+      allow read: if isAuthenticated() && (isAdmin() || isOwner() ||
+                    (isTenant() && resource.data.tenantId == request.auth.uid));
+      allow create:               if isAdmin();
+      allow update: if isAdmin() || (isTenant() && resource.data.tenantId == request.auth.uid);
+      allow delete:               if isAdmin();
+    }
+
+    // ── Maintenance Tickets ──────────────────────────────────────────────────
+    match /maintenance_tickets/{docId} {
+      allow read: if isAuthenticated() && (isAdmin() ||
+                    (isTenant() && resource.data.tenantId == request.auth.uid) ||
+                    (isVendor() && resource.data.assignedVendorId == request.auth.uid) ||
+                    isOwner());
+      allow create: if isAuthenticated() && (isAdmin() || isTenant());
+      allow update: if isAdmin() || isVendor();
+      allow delete: if isAdmin();
+    }
+
+    // ── Expenses ─────────────────────────────────────────────────────────────
+    match /expenses/{docId} {
+      allow read:                  if isAuthenticated() && (isAdmin() || isOwner());
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ── Owner Statements ─────────────────────────────────────────────────────
+    match /owner_statements/{docId} {
+      allow read: if isAuthenticated() && (isAdmin() ||
+                    (isOwner() && resource.data.ownerId == request.auth.uid));
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ── Enquiries ────────────────────────────────────────────────────────────
+    match /enquiry/{docId} {
+      allow read:   if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update, delete: if isAdmin();
+    }
+
+    // ── Callbacks ────────────────────────────────────────────────────────────
+    match /callback/{docId} {
+      allow read:              if isAdmin();
+      allow create:            if isAuthenticated();
+      allow update, delete:    if isAdmin();
+    }
+
+    // ── Audit Logs ───────────────────────────────────────────────────────────
+    match /audit_logs/{docId} {
+      allow read:           if isAdmin();
+      allow create:         if isAuthenticated();
+      allow update, delete: if isSuperAdmin();
+    }
+  }
+}
