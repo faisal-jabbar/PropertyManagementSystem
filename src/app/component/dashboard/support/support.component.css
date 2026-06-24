@@ -1,0 +1,20 @@
+.container{
+  width: 50%;
+  position: absolute;
+  margin-top: -180px;
+  left:50%;
+  transform: translate(-50%,50%);
+}
+.form-group{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.form-group input, .form-group textarea{
+  width: 100%;
+}
+.submitMessage{
+  color:green;
+  font-weight : bold;
+}

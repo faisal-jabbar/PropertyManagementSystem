@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Generate Owner Statement</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline" class="fw"><mat-label>Select Owner</mat-label><mat-select [(ngModel)]="selectedOwner"><mat-option *ngFor="let o of owners" [value]="o">{{o.name}}</mat-option></mat-select></mat-form-field>
+  <mat-form-field appearance="outline" class="fw"><mat-label>Period Start</mat-label><input matInput type="date" [(ngModel)]="periodStart"></mat-form-field>
+  <mat-form-field appearance="outline" class="fw"><mat-label>Period End</mat-label><input matInput type="date" [(ngModel)]="periodEnd"></mat-form-field>
+  <mat-form-field appearance="outline" class="fw"><mat-label>Notes</mat-label><textarea matInput [(ngModel)]="notes" rows="2"></textarea></mat-form-field>
+  <div *ngIf="calculated" class="summary">
+    <div class="row"><span>Rent Collected:</span><strong>SAR {{rentTotal|number}}</strong></div>
+    <div class="row"><span>Approved Expenses:</span><strong>SAR {{expenseTotal|number}}</strong></div>
+    <div class="row"><span>Management Fee ({{selectedOwner?.managementFee}}%):</span><strong>SAR {{feeTotal|number}}</strong></div>
+    <mat-divider style="margin:8px 0"></mat-divider>
+    <div class="row net"><span>Net Payout:</span><strong>SAR {{payoutAmount|number}}</strong></div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-raised-button (click)="calculate()" *ngIf="!calculated">Calculate</button>
+  <button mat-raised-button color="primary" (click)="save()" *ngIf="calculated">Save Statement</button>
+</mat-dialog-actions>
