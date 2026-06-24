@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="form-grid">
+    <mat-form-field appearance="outline"><mat-label>Unit *</mat-label><mat-select formControlName="unitId" (selectionChange)="onUnitChange($event.value)"><mat-option *ngFor="let u of units" [value]="u.id">{{u.unitNo}} — {{u.type}}</mat-option></mat-select></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Category *</mat-label><mat-select formControlName="category"><mat-option *ngFor="let c of categories" [value]="c">{{c}}</mat-option></mat-select></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Priority *</mat-label><mat-select formControlName="priority"><mat-option *ngFor="let p of priorities" [value]="p">{{p}}</mat-option></mat-select></mat-form-field>
+    <mat-form-field appearance="outline" style="grid-column:span 2"><mat-label>Description *</mat-label><textarea matInput formControlName="description" rows="3" placeholder="Describe the issue in detail..."></textarea></mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end"><button mat-button (click)="cancel()">Cancel</button><button mat-raised-button color="primary" (click)="save()">{{buttonName}}</button></mat-dialog-actions>

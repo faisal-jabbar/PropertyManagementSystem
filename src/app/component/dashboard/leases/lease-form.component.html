@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="form-grid">
+    <mat-form-field appearance="outline"><mat-label>Tenant *</mat-label><mat-select formControlName="tenantId" (selectionChange)="onTenantChange($event.value)"><mat-option *ngFor="let t of tenants" [value]="t.id">{{t.name}}</mat-option></mat-select></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Unit *</mat-label><mat-select formControlName="unitId" (selectionChange)="onUnitChange($event.value)"><mat-option *ngFor="let u of units" [value]="u.id">{{u.unitNo}} — {{u.type}}</mat-option></mat-select></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Start Date *</mat-label><input matInput type="date" formControlName="startDate"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>End Date *</mat-label><input matInput type="date" formControlName="endDate"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Rent Amount (SAR) *</mat-label><input matInput type="number" formControlName="rentAmount"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Deposit (SAR)</mat-label><input matInput type="number" formControlName="deposit"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Payment Frequency *</mat-label><mat-select formControlName="frequency"><mat-option value="Monthly">Monthly</mat-option><mat-option value="Quarterly">Quarterly</mat-option><mat-option value="Annual">Annual</mat-option></mat-select></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Ejar Reference</mat-label><input matInput formControlName="ejarRef"></mat-form-field>
+    <mat-form-field appearance="outline" style="grid-column:span 2"><mat-label>Notes</mat-label><textarea matInput formControlName="notes" rows="2"></textarea></mat-form-field>
+  </form>
+  <div class="hint-box"><mat-icon>info</mat-icon> Saving will auto-generate the full rent payment schedule based on frequency.</div>
+</mat-dialog-content>
+<mat-dialog-actions align="end"><button mat-button (click)="cancel()">Cancel</button><button mat-raised-button color="primary" (click)="save()">{{buttonName}}</button></mat-dialog-actions>
