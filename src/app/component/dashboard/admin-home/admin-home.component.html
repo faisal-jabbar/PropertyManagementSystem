@@ -1,0 +1,42 @@
+<div class="page">
+  <div class="kpi-grid">
+    <mat-card class="kpi kpi-blue"><mat-icon>home_work</mat-icon><div class="kv">{{totalProperties}}</div><div class="kl">Properties</div></mat-card>
+    <mat-card class="kpi kpi-indigo"><mat-icon>domain</mat-icon><div class="kv">{{totalUnits}}</div><div class="kl">Total Units</div></mat-card>
+    <mat-card class="kpi kpi-green"><mat-icon>check_circle</mat-icon><div class="kv">{{occupiedUnits}}</div><div class="kl">Occupied</div></mat-card>
+    <mat-card class="kpi kpi-orange"><mat-icon>radio_button_unchecked</mat-icon><div class="kv">{{vacantUnits}}</div><div class="kl">Vacant</div></mat-card>
+    <mat-card class="kpi kpi-teal"><mat-icon>payments</mat-icon><div class="kv">{{fmt(rentCollected)}}</div><div class="kl">Rent Collected</div></mat-card>
+    <mat-card class="kpi kpi-amber"><mat-icon>pending</mat-icon><div class="kv">{{fmt(pendingRent)}}</div><div class="kl">Pending Rent</div></mat-card>
+    <mat-card class="kpi kpi-red"><mat-icon>warning</mat-icon><div class="kv">{{fmt(overdueRent)}}</div><div class="kl">Overdue Rent</div></mat-card>
+    <mat-card class="kpi kpi-purple"><mat-icon>build</mat-icon><div class="kv">{{openTickets}}</div><div class="kl">Open Tickets</div></mat-card>
+  </div>
+  <div class="bottom-grid">
+    <mat-card class="tbl-card">
+      <mat-card-header><mat-card-title><mat-icon>event_busy</mat-icon>&nbsp;Leases Expiring (90 days)</mat-card-title></mat-card-header>
+      <mat-card-content>
+        <table mat-table [dataSource]="expiringLeases" class="full-w">
+          <ng-container matColumnDef="tenantName"><th mat-header-cell *matHeaderCellDef>Tenant</th><td mat-cell *matCellDef="let r">{{r.tenantName}}</td></ng-container>
+          <ng-container matColumnDef="unitNo"><th mat-header-cell *matHeaderCellDef>Unit</th><td mat-cell *matCellDef="let r">{{r.unitNo}}</td></ng-container>
+          <ng-container matColumnDef="endDate"><th mat-header-cell *matHeaderCellDef>End Date</th><td mat-cell *matCellDef="let r">{{r.endDate}}</td></ng-container>
+          <ng-container matColumnDef="days"><th mat-header-cell *matHeaderCellDef>Days Left</th><td mat-cell *matCellDef="let r"><span [class]="daysLeft(r.endDate)<30?'badge-red':'badge-orange'">{{daysLeft(r.endDate)}}d</span></td></ng-container>
+          <tr mat-header-row *matHeaderRowDef="['tenantName','unitNo','endDate','days']"></tr>
+          <tr mat-row *matRowDef="let r; columns:['tenantName','unitNo','endDate','days']"></tr>
+        </table>
+        <p *ngIf="!expiringLeases.length" class="empty">No expiring leases in 90 days</p>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="tbl-card">
+      <mat-card-header><mat-card-title><mat-icon>construction</mat-icon>&nbsp;Recent Tickets</mat-card-title></mat-card-header>
+      <mat-card-content>
+        <table mat-table [dataSource]="recentTickets" class="full-w">
+          <ng-container matColumnDef="ticketNo"><th mat-header-cell *matHeaderCellDef>#</th><td mat-cell *matCellDef="let r">{{r.ticketNo||r.id?.substring(0,6)}}</td></ng-container>
+          <ng-container matColumnDef="category"><th mat-header-cell *matHeaderCellDef>Category</th><td mat-cell *matCellDef="let r">{{r.category}}</td></ng-container>
+          <ng-container matColumnDef="priority"><th mat-header-cell *matHeaderCellDef>Priority</th><td mat-cell *matCellDef="let r"><span [class]="r.priority==='Urgent'?'badge-red':r.priority==='High'?'badge-orange':'badge-teal'">{{r.priority}}</span></td></ng-container>
+          <ng-container matColumnDef="status"><th mat-header-cell *matHeaderCellDef>Status</th><td mat-cell *matCellDef="let r">{{r.status}}</td></ng-container>
+          <tr mat-header-row *matHeaderRowDef="['ticketNo','category','priority','status']"></tr>
+          <tr mat-row *matRowDef="let r; columns:['ticketNo','category','priority','status']"></tr>
+        </table>
+        <p *ngIf="!recentTickets.length" class="empty">No tickets yet</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
