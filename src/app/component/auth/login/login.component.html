@@ -1,0 +1,44 @@
+<div class="login-bg">
+  <div class="login-card mat-elevation-z10">
+    <div class="login-logo">
+      <mat-icon class="logo-icon">apartment</mat-icon>
+      <h1 class="logo-title">PropManage</h1>
+      <p class="logo-sub">Property Management Platform</p>
+    </div>
+
+    <ng-container *ngIf="!showReset">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email Address</mat-label>
+        <input matInput type="email" [(ngModel)]="email" placeholder="you@example.com" id="loginEmail">
+        <mat-icon matPrefix>email</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" [(ngModel)]="password" placeholder="••••••••" id="loginPassword" (keyup.enter)="login()">
+        <mat-icon matPrefix>lock</mat-icon>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="full-width login-btn" (click)="login()" [disabled]="isLoading" id="loginBtn">
+        <mat-spinner diameter="20" *ngIf="isLoading" class="btn-spinner"></mat-spinner>
+        <span *ngIf="!isLoading">Sign In</span>
+      </button>
+
+      <div class="login-links">
+        <a (click)="showReset=true">Forgot password?</a>
+        <a routerLink="/registration">Create account</a>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="showReset">
+      <h3 class="reset-title">Reset Password</h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Your Email</mat-label>
+        <input matInput type="email" [(ngModel)]="resetEmail" id="resetEmail">
+        <mat-icon matPrefix>email</mat-icon>
+      </mat-form-field>
+      <button mat-raised-button color="primary" class="full-width" (click)="sendReset()" id="resetBtn">Send Reset Link</button>
+      <button mat-button class="full-width mt-8" (click)="showReset=false">Back to Login</button>
+    </ng-container>
+  </div>
+</div>

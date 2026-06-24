@@ -1,0 +1,113 @@
+<div class="reg-bg">
+  <div class="reg-card mat-elevation-z12">
+
+    <!-- Logo / Brand -->
+    <div class="reg-logo">
+      <div class="reg-logo-circle">
+        <mat-icon>apartment</mat-icon>
+      </div>
+      <h1 class="logo-title">PropManage</h1>
+      <p class="logo-sub">Create Your Account</p>
+    </div>
+
+    <!-- Full Name -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Full Name</mat-label>
+      <input matInput [(ngModel)]="name" id="regName" placeholder="e.g. Abdullah Al-Rashidi" autocomplete="name">
+      <mat-icon matPrefix>person</mat-icon>
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email Address</mat-label>
+      <input matInput type="email" [(ngModel)]="email" id="regEmail" placeholder="you@example.com" autocomplete="email">
+      <mat-icon matPrefix>email</mat-icon>
+    </mat-form-field>
+
+    <!-- Mobile -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Mobile Number</mat-label>
+      <input matInput [(ngModel)]="mobile" id="regMobile" placeholder="+966 5x xxx xxxx" autocomplete="tel">
+      <mat-icon matPrefix>phone</mat-icon>
+    </mat-form-field>
+
+    <!-- Role Dropdown (grouped) -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Role</mat-label>
+      <mat-select [(ngModel)]="role" id="regRole">
+
+        <!-- Administration group -->
+        <mat-optgroup label="Administration">
+          <mat-option
+            *ngFor="let r of rolesInGroup('Administration')"
+            [value]="r.value"
+            class="role-admin-opt">
+            {{r.label}}
+          </mat-option>
+        </mat-optgroup>
+
+        <!-- Staff group -->
+        <mat-optgroup label="Staff">
+          <mat-option *ngFor="let r of rolesInGroup('Staff')" [value]="r.value">
+            {{r.label}}
+          </mat-option>
+        </mat-optgroup>
+
+        <!-- External group -->
+        <mat-optgroup label="External">
+          <mat-option *ngFor="let r of rolesInGroup('External')" [value]="r.value">
+            {{r.label}}
+          </mat-option>
+        </mat-optgroup>
+
+      </mat-select>
+      <mat-icon matPrefix>badge</mat-icon>
+    </mat-form-field>
+
+    <!-- Dev-only warning banner when super_admin selected -->
+    <div class="dev-warn" *ngIf="role === 'super_admin'">
+      <mat-icon>warning</mat-icon>
+      <span>
+        <strong>Development only.</strong>
+        Remove this option from production signup to prevent unauthorized admin accounts.
+      </span>
+    </div>
+
+    <!-- Password -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Password</mat-label>
+      <input matInput [type]="showPassword ? 'text' : 'password'" [(ngModel)]="password" id="regPassword" autocomplete="new-password">
+      <mat-icon matPrefix>lock</mat-icon>
+      <button mat-icon-button matSuffix (click)="showPassword=!showPassword" type="button" tabindex="-1">
+        <mat-icon>{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-hint>Minimum 6 characters</mat-hint>
+    </mat-form-field>
+
+    <!-- Confirm Password -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput [type]="showConfirm ? 'text' : 'password'" [(ngModel)]="confirmPassword" id="regConfirmPassword" autocomplete="new-password">
+      <mat-icon matPrefix>lock_outline</mat-icon>
+      <button mat-icon-button matSuffix (click)="showConfirm=!showConfirm" type="button" tabindex="-1">
+        <mat-icon>{{showConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <!-- Submit -->
+    <button
+      mat-raised-button
+      class="full-width reg-btn"
+      (click)="register()"
+      [disabled]="isLoading"
+      id="regBtn">
+      <mat-spinner diameter="20" *ngIf="isLoading" class="btn-spinner"></mat-spinner>
+      <mat-icon *ngIf="!isLoading">person_add</mat-icon>
+      <span>{{isLoading ? 'Creating Account…' : 'Create Account'}}</span>
+    </button>
+
+    <div class="reg-footer">
+      Already have an account?&nbsp;<a routerLink="/login">Sign In</a>
+    </div>
+  </div>
+</div>

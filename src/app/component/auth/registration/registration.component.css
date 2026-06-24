@@ -1,0 +1,97 @@
+/* ── Background ──────────────────────────────────────────────────────────── */
+.reg-bg {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background: linear-gradient(135deg, #1a237e 0%, #0d47a1 55%, #1565c0 100%);
+  overflow-y: auto;
+}
+
+/* ── Card ────────────────────────────────────────────────────────────────── */
+.reg-card {
+  background: white;
+  border-radius: 20px;
+  padding: 36px 32px 28px;
+  width: 100%;
+  max-width: 460px;
+  animation: slideUp 0.35s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Logo ────────────────────────────────────────────────────────────────── */
+.reg-logo { text-align: center; margin-bottom: 24px; }
+
+.reg-logo-circle {
+  width: 64px; height: 64px;
+  background: linear-gradient(135deg, #1a237e, #3949ab);
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.reg-logo-circle mat-icon { color: white; font-size: 34px; height: 34px; width: 34px; }
+
+.logo-title { font-size: 24px; font-weight: 700; color: #1a237e; margin: 0 0 4px; font-family: 'Inter', sans-serif; }
+.logo-sub   { color: #888; font-size: 13px; margin: 0; }
+
+/* ── Fields ──────────────────────────────────────────────────────────────── */
+.full-width { width: 100%; margin-bottom: 2px; }
+
+/* Super-admin option highlighted in gold */
+.role-admin-opt { font-weight: 700; color: #b8860b !important; }
+
+/* ── Dev warning banner ───────────────────────────────────────────────────── */
+.dev-warn {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #fff8e1;
+  border: 1.5px solid #f9a825;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 0 0 12px;
+  font-size: 12.5px;
+  color: #7a5c00;
+  animation: fadeIn 0.25s ease;
+}
+.dev-warn mat-icon { color: #f9a825; font-size: 20px; height: 20px; width: 20px; flex-shrink: 0; margin-top: 1px; }
+.dev-warn strong { display: block; margin-bottom: 2px; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── Submit button ───────────────────────────────────────────────────────── */
+.reg-btn {
+  height: 48px;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 6px;
+  background: linear-gradient(135deg, #1a237e, #3949ab) !important;
+  color: white !important;
+  border-radius: 10px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+}
+.reg-btn:hover:not([disabled]) { opacity: 0.9; }
+.btn-spinner { display: inline-block; }
+
+/* ── Footer link ─────────────────────────────────────────────────────────── */
+.reg-footer {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 13px;
+  color: #888;
+}
+.reg-footer a { color: #1565c0; text-decoration: none; font-weight: 500; }
+.reg-footer a:hover { text-decoration: underline; }
+
+@media (max-width: 480px) { .reg-card { padding: 28px 20px 24px; } }
