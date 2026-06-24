@@ -1,0 +1,16 @@
+<div class="ph"><h2>Owners</h2><button mat-raised-button color="primary" (click)="open()" id="addOwnerBtn"><mat-icon>add</mat-icon>Add Owner</button></div>
+<mat-card class="tc">
+  <mat-form-field appearance="outline" class="sf"><mat-label>Search owners...</mat-label><input matInput (keyup)="applyFilter($event)" id="ownerSearch"><mat-icon matSuffix>search</mat-icon></mat-form-field>
+  <table mat-table [dataSource]="dataSource" matSort class="fw">
+    <ng-container matColumnDef="name"><th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th><td mat-cell *matCellDef="let r"><strong>{{r.name}}</strong></td></ng-container>
+    <ng-container matColumnDef="email"><th mat-header-cell *matHeaderCellDef>Email</th><td mat-cell *matCellDef="let r">{{r.email}}</td></ng-container>
+    <ng-container matColumnDef="mobile"><th mat-header-cell *matHeaderCellDef>Mobile</th><td mat-cell *matCellDef="let r">{{r.mobile}}</td></ng-container>
+    <ng-container matColumnDef="managementFee"><th mat-header-cell *matHeaderCellDef>Fee %</th><td mat-cell *matCellDef="let r">{{r.managementFee}}%</td></ng-container>
+    <ng-container matColumnDef="approvalThreshold"><th mat-header-cell *matHeaderCellDef>Threshold</th><td mat-cell *matCellDef="let r">SAR {{r.approvalThreshold|number}}</td></ng-container>
+    <ng-container matColumnDef="status"><th mat-header-cell *matHeaderCellDef>Status</th><td mat-cell *matCellDef="let r"><span [class]="r.status==='Active'?'badge-green':'badge-red'">{{r.status}}</span></td></ng-container>
+    <ng-container matColumnDef="actions"><th mat-header-cell *matHeaderCellDef>Actions</th><td mat-cell *matCellDef="let r"><button mat-icon-button color="primary" (click)="open(r)"><mat-icon>edit</mat-icon></button><button mat-icon-button color="warn" (click)="delete(r.id)"><mat-icon>delete</mat-icon></button></td></ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let r; columns:displayedColumns"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[10,25,50]" showFirstLastButtons></mat-paginator>
+</mat-card>

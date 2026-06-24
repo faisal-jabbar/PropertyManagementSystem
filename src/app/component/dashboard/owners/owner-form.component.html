@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="form-grid">
+    <mat-form-field appearance="outline"><mat-label>Full Name *</mat-label><input matInput formControlName="name"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Email *</mat-label><input matInput formControlName="email" type="email"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Mobile *</mat-label><input matInput formControlName="mobile"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>ID / CR Number *</mat-label><input matInput formControlName="idNumber"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Bank Details</mat-label><input matInput formControlName="bankDetails"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Agreement Date</mat-label><input matInput type="date" formControlName="agreementDate"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Management Fee % *</mat-label><input matInput type="number" formControlName="managementFee"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Approval Threshold (SAR) *</mat-label><input matInput type="number" formControlName="approvalThreshold"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Status</mat-label><mat-select formControlName="status"><mat-option value="Active">Active</mat-option><mat-option value="Inactive">Inactive</mat-option></mat-select></mat-form-field>
+    <mat-form-field appearance="outline" style="grid-column:span 2"><mat-label>Notes</mat-label><textarea matInput formControlName="notes" rows="2"></textarea></mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end"><button mat-button (click)="cancel()">Cancel</button><button mat-raised-button color="primary" (click)="save()">{{buttonName}}</button></mat-dialog-actions>
