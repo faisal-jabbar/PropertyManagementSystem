@@ -2,6 +2,8 @@
 
 This is a Property Management System built with Angular and Firebase. The application helps property managers efficiently manage their properties, tenants, and maintenance requests.
 
+> Note: This is the basic reference version of the app. The original version was exported to the client and the domain hosting has since changed. This repository is provided for reference only.
+
 ## Features
 
 - Property Listing: Add, view, edit, and delete properties with details such as address, amount, and property type.
