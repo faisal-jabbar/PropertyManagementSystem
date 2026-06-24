@@ -1,0 +1,131 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav mat-elevation-z8" fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false">
+
+    <div class="nav-header">
+      <mat-icon class="nav-logo-icon">apartment</mat-icon>
+      <span class="nav-brand">PropManage</span>
+    </div>
+
+    <div class="user-chip" *ngIf="profile">
+      <mat-icon>account_circle</mat-icon>
+      <div>
+        <div class="user-name">{{profile.name}}</div>
+        <div class="user-role">{{profile.role | titlecase}}</div>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <mat-nav-list class="nav-list">
+      <!-- Admin / Manager / Finance -->
+      <ng-container *ngIf="isAdmin">
+        <a mat-list-item routerLink="admin-home" routerLinkActive="active-link" (click)="updateTitle('Dashboard')">
+          <mat-icon matListItemIcon>dashboard</mat-icon><span>Dashboard</span>
+        </a>
+        <a mat-list-item routerLink="owners" routerLinkActive="active-link" (click)="updateTitle('Owners')">
+          <mat-icon matListItemIcon>people</mat-icon><span>Owners</span>
+        </a>
+        <a mat-list-item routerLink="properties" routerLinkActive="active-link" (click)="updateTitle('Properties')">
+          <mat-icon matListItemIcon>home_work</mat-icon><span>Properties</span>
+        </a>
+        <a mat-list-item routerLink="units" routerLinkActive="active-link" (click)="updateTitle('Units')">
+          <mat-icon matListItemIcon>domain</mat-icon><span>Units</span>
+        </a>
+        <a mat-list-item routerLink="tenants" routerLinkActive="active-link" (click)="updateTitle('Tenants')">
+          <mat-icon matListItemIcon>person_pin</mat-icon><span>Tenants</span>
+        </a>
+        <a mat-list-item routerLink="leases" routerLinkActive="active-link" (click)="updateTitle('Leases')">
+          <mat-icon matListItemIcon>description</mat-icon><span>Leases</span>
+        </a>
+        <a mat-list-item routerLink="rent-ledger" routerLinkActive="active-link" (click)="updateTitle('Rent Ledger')">
+          <mat-icon matListItemIcon>payments</mat-icon><span>Rent Ledger</span>
+        </a>
+        <a mat-list-item routerLink="maintenance" routerLinkActive="active-link" (click)="updateTitle('Maintenance')">
+          <mat-icon matListItemIcon>construction</mat-icon><span>Maintenance</span>
+        </a>
+        <a mat-list-item routerLink="expenses" routerLinkActive="active-link" (click)="updateTitle('Expenses')">
+          <mat-icon matListItemIcon>receipt_long</mat-icon><span>Expenses</span>
+        </a>
+        <a mat-list-item routerLink="statements" routerLinkActive="active-link" (click)="updateTitle('Statements')">
+          <mat-icon matListItemIcon>summarize</mat-icon><span>Owner Statements</span>
+        </a>
+        <a mat-list-item routerLink="reports" routerLinkActive="active-link" (click)="updateTitle('Reports')">
+          <mat-icon matListItemIcon>bar_chart</mat-icon><span>Reports</span>
+        </a>
+        <a mat-list-item routerLink="enquiry" routerLinkActive="active-link" (click)="updateTitle('Enquiries')">
+          <mat-icon matListItemIcon>contact_support</mat-icon><span>Enquiries</span>
+        </a>
+        <ng-container *ngIf="isSuperAdmin">
+          <mat-divider style="margin: 8px 0"></mat-divider>
+          <a mat-list-item routerLink="users" routerLinkActive="active-link" (click)="updateTitle('User Management')">
+            <mat-icon matListItemIcon>manage_accounts</mat-icon><span>User Management</span>
+          </a>
+          <a mat-list-item routerLink="seed-data" routerLinkActive="active-link" (click)="updateTitle('Seed Database')">
+            <mat-icon matListItemIcon>storage</mat-icon><span>Seed Database</span>
+          </a>
+        </ng-container>
+      </ng-container>
+
+      <!-- Owner -->
+      <ng-container *ngIf="isOwner">
+        <a mat-list-item routerLink="owner-home" routerLinkActive="active-link" (click)="updateTitle('My Dashboard')">
+          <mat-icon matListItemIcon>dashboard</mat-icon><span>My Dashboard</span>
+        </a>
+        <a mat-list-item routerLink="properties" routerLinkActive="active-link" (click)="updateTitle('My Properties')">
+          <mat-icon matListItemIcon>home_work</mat-icon><span>My Properties</span>
+        </a>
+        <a mat-list-item routerLink="rent-ledger" routerLinkActive="active-link" (click)="updateTitle('Rent Summary')">
+          <mat-icon matListItemIcon>payments</mat-icon><span>Rent Summary</span>
+        </a>
+        <a mat-list-item routerLink="maintenance" routerLinkActive="active-link" (click)="updateTitle('Maintenance')">
+          <mat-icon matListItemIcon>construction</mat-icon><span>Maintenance</span>
+        </a>
+        <a mat-list-item routerLink="statements" routerLinkActive="active-link" (click)="updateTitle('My Statements')">
+          <mat-icon matListItemIcon>summarize</mat-icon><span>My Statements</span>
+        </a>
+      </ng-container>
+
+      <!-- Tenant -->
+      <ng-container *ngIf="isTenant">
+        <a mat-list-item routerLink="tenant-home" routerLinkActive="active-link" (click)="updateTitle('My Dashboard')">
+          <mat-icon matListItemIcon>dashboard</mat-icon><span>My Dashboard</span>
+        </a>
+        <a mat-list-item routerLink="rent-ledger" routerLinkActive="active-link" (click)="updateTitle('My Rent')">
+          <mat-icon matListItemIcon>payments</mat-icon><span>My Rent</span>
+        </a>
+        <a mat-list-item routerLink="maintenance" routerLinkActive="active-link" (click)="updateTitle('Maintenance')">
+          <mat-icon matListItemIcon>construction</mat-icon><span>Maintenance Requests</span>
+        </a>
+        <a mat-list-item routerLink="support" routerLinkActive="active-link" (click)="updateTitle('Support')">
+          <mat-icon matListItemIcon>support_agent</mat-icon><span>Support</span>
+        </a>
+      </ng-container>
+
+      <!-- Vendor -->
+      <ng-container *ngIf="isVendor">
+        <a mat-list-item routerLink="vendor-home" routerLinkActive="active-link" (click)="updateTitle('My Jobs')">
+          <mat-icon matListItemIcon>handyman</mat-icon><span>My Assigned Jobs</span>
+        </a>
+      </ng-container>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar class="top-toolbar mat-elevation-z3">
+      <button type="button" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="toolbar-title">{{ title }}</span>
+      <span class="flex-spacer"></span>
+      <button mat-icon-button (click)="logout()" matTooltip="Logout">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

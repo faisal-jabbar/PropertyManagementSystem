@@ -1,0 +1,15 @@
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+.mat-card :hover{
+    transform: scale(1.03);
+}
+
+table {
+    width: 100%;
+}
+
+.add-prop {
+    color: black;
+}

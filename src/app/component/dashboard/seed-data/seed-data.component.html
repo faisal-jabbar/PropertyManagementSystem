@@ -1,0 +1,68 @@
+<div class="seed-page">
+  <!-- Header -->
+  <div class="seed-header">
+    <div class="seed-icon-wrap">
+      <mat-icon class="seed-icon">storage</mat-icon>
+    </div>
+    <div>
+      <h1>Database Seeder</h1>
+      <p>Populate all Firestore collections with realistic sample data for testing and demonstration.</p>
+    </div>
+  </div>
+
+  <!-- Info boxes -->
+  <div class="info-grid">
+    <div class="info-card" *ngFor="let c of collections">
+      <mat-icon [style.color]="c.color">{{c.icon}}</mat-icon>
+      <div>
+        <div class="ic-label">{{c.name}}</div>
+        <div class="ic-count">5 records</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seed Button -->
+  <div class="action-area" *ngIf="!seeding && !done">
+    <button mat-raised-button class="seed-btn" (click)="seedAll()" id="seedBtn">
+      <mat-icon>rocket_launch</mat-icon>
+      Seed All Collections
+    </button>
+    <p class="warn-text">
+      <mat-icon style="font-size:16px;height:16px;width:16px;vertical-align:middle">warning</mat-icon>
+      Only run this once. Running multiple times will create duplicate records.
+    </p>
+  </div>
+
+  <!-- Progress Log -->
+  <mat-card class="log-card" *ngIf="steps.length > 0">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>terminal</mat-icon>&nbsp; Seeding Progress
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="log-list">
+        <div class="log-row" *ngFor="let step of steps">
+          <span class="log-icon">
+            <mat-spinner *ngIf="step.status==='running'" diameter="18"></mat-spinner>
+            <mat-icon *ngIf="step.status==='done'" class="icon-done">check_circle</mat-icon>
+            <mat-icon *ngIf="step.status==='error'" class="icon-err">error</mat-icon>
+          </span>
+          <span class="log-label">{{step.label}}</span>
+          <span class="log-count badge-green" *ngIf="step.status==='done'">✓ {{step.count}} records</span>
+          <span class="log-count badge-red" *ngIf="step.status==='error'">Failed</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Done Banner -->
+  <div class="done-banner" *ngIf="done">
+    <mat-icon>celebration</mat-icon>
+    <div>
+      <strong>All done!</strong>
+      <span>45 records seeded across 9 collections. Navigate to any module to see the data.</span>
+    </div>
+    <a mat-raised-button routerLink="../admin-home" color="primary">Go to Dashboard →</a>
+  </div>
+</div>

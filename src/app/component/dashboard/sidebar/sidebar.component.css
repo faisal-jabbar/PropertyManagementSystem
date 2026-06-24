@@ -1,0 +1,145 @@
+/* ── Sidenav Container ───────────────────────────────────────────────────── */
+.sidenav-container {
+  height: 100vh;
+  width: 100vw;
+}
+
+/* ── Sidebar Panel ───────────────────────────────────────────────────────── */
+.sidenav {
+  width: 248px;
+  background: linear-gradient(180deg, #1a237e 0%, #283593 100%);
+  color: white;
+  border-right: none !important;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Logo / Brand ────────────────────────────────────────────────────────── */
+.nav-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 16px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.nav-logo-icon {
+  font-size: 32px;
+  height: 32px;
+  width: 32px;
+  color: #90caf9;
+}
+
+.nav-brand {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.5px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── User Chip ───────────────────────────────────────────────────────────── */
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.08);
+  margin: 12px 10px 6px;
+  border-radius: 10px;
+}
+
+.user-chip mat-icon {
+  color: #90caf9;
+  font-size: 28px;
+  height: 28px;
+  width: 28px;
+  flex-shrink: 0;
+}
+
+.user-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.2;
+}
+
+.user-role {
+  font-size: 11px;
+  color: #90caf9;
+  text-transform: capitalize;
+}
+
+/* ── Nav List ────────────────────────────────────────────────────────────── */
+.nav-list {
+  padding: 8px 0;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.nav-list a {
+  color: rgba(255,255,255,0.75) !important;
+  border-radius: 8px;
+  margin: 1px 8px;
+  height: 44px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.15s ease;
+}
+
+.nav-list a mat-icon {
+  color: rgba(255,255,255,0.55) !important;
+  margin-right: 4px;
+}
+
+.nav-list a:hover {
+  background: rgba(255,255,255,0.12) !important;
+  color: white !important;
+}
+
+.nav-list a:hover mat-icon {
+  color: rgba(255,255,255,0.85) !important;
+}
+
+.nav-list a.active-link {
+  background: rgba(144,202,249,0.22) !important;
+  color: #90caf9 !important;
+  font-weight: 600;
+}
+
+.nav-list a.active-link mat-icon {
+  color: #90caf9 !important;
+}
+
+/* ── Top Toolbar ─────────────────────────────────────────────────────────── */
+.top-toolbar {
+  background: white !important;
+  color: #1a237e !important;
+  border-bottom: 1px solid #e8eaf6;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 6px rgba(26,35,126,0.08);
+}
+
+.toolbar-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1a237e;
+  font-family: 'Inter', sans-serif;
+}
+
+.flex-spacer { flex: 1 1 auto; }
+
+/* ── Content Area ────────────────────────────────────────────────────────── */
+.content-area {
+  padding: 24px;
+  background: #f5f7fa;
+  min-height: calc(100vh - 64px);
+  overflow-y: auto;
+}
+
+/* ── mat-sidenav-content scrolling fix ──────────────────────────────────── */
+mat-sidenav-content {
+  overflow-y: auto !important;
+}
