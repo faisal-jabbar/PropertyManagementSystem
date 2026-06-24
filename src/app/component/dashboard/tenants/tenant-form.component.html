@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="form-grid">
+    <mat-form-field appearance="outline"><mat-label>Full Name *</mat-label><input matInput formControlName="name"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Email *</mat-label><input matInput formControlName="email" type="email"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Mobile *</mat-label><input matInput formControlName="mobile"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>ID / Iqama *</mat-label><input matInput formControlName="idNumber"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Employer</mat-label><input matInput formControlName="employer"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Emergency Contact</mat-label><input matInput formControlName="emergencyContact"></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Status</mat-label><mat-select formControlName="status"><mat-option value="Active">Active</mat-option><mat-option value="Inactive">Inactive</mat-option></mat-select></mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end"><button mat-button (click)="cancel()">Cancel</button><button mat-raised-button color="primary" (click)="save()">{{buttonName}}</button></mat-dialog-actions>
