@@ -1,0 +1,92 @@
+/* ── Reset & Base ─────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* let mat-sidenav-container handle scrolling */
+  font-family: 'Inter', 'Roboto', sans-serif;
+  background: #f5f7fa;
+}
+
+/* Ensure the Angular root fills the full viewport */
+app-root {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+/* mat-sidenav-container must fill the viewport */
+.mat-sidenav-container,
+.mat-drawer-container {
+  height: 100vh !important;
+  width: 100vw !important;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+}
+
+/* ── Shared Table Styles ─────────────────────────────────────────────────── */
+.mat-mdc-header-cell {
+  font-weight: 700 !important;
+  color: #1a237e !important;
+  background: #f8f9ff !important;
+}
+
+.mat-mdc-row:hover {
+  background: #f5f7ff !important;
+}
+
+/* ── Page Header (shared across all modules) ─────────────────────────────── */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.page-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1a237e;
+}
+
+/* ── Global Badge Styles ─────────────────────────────────────────────────── */
+.badge-green  { background: #e8f5e9; color: #2e7d32; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+.badge-red    { background: #ffebee; color: #c62828; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+.badge-orange { background: #fff3e0; color: #e65100; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+.badge-blue   { background: #e3f2fd; color: #1565c0; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+.badge-amber  { background: #fff8e1; color: #f57f17; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+.badge-teal   { background: #e0f2f1; color: #00695c; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+.badge-purple { background: #f3e5f5; color: #6a1b9a; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+.badge-grey   { background: #f5f5f5; color: #757575; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+
+/* ── Shared Form Grid ────────────────────────────────────────────────────── */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 16px;
+}
+
+/* ── Dialog Overrides ────────────────────────────────────────────────────── */
+mat-dialog-content {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-top: 8px !important;
+}
+
+mat-dialog-actions {
+  padding: 16px 24px !important;
+  justify-content: flex-end;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #c5cae9; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #9fa8da; }
